@@ -11,13 +11,6 @@
 
 
 <?php
-//date表示できない
-
-//投稿機能
-    
-        
-       
-        
     //データベースへの接続
     $dsn = "データベース名";
     $user = 'ユーザー名';
@@ -28,7 +21,7 @@
     //CREATE文：データベース内にテーブルを作成 
     $sql = "CREATE TABLE IF NOT EXISTS tbtest"//テーブル名は「tbtest」
     ." ("
-    . "id INT AUTO_INCREMENT PRIMARY KEY,"//id ・自動で登録されていうナンバリング。
+    . "id INT AUTO_INCREMENT PRIMARY KEY,"//id 
     . "name char(32),"//name ・名前を入れる。文字列、半角英数で32文字。
     . "comment TEXT,"//comment ・コメントを入れる。文字列、長めの文章も入る。
     . "date DATETIME"//date
@@ -38,7 +31,7 @@
     
     
    
-    
+//投稿機能
     //INSERT文：データを入力（データレコードの挿入）
     if(!empty($_POST["name"])&& !empty($_POST["comment"])&& empty($_POST["str"])){
     $sql = $pdo -> prepare("INSERT INTO tbtest (name, comment,date) VALUES (:name, :comment,:date)");
@@ -88,7 +81,7 @@
         }
     }
     
-//編集機能 
+//編集実行機能 
     if(!empty($_POST["str"])){
     $editnum = $_POST["str"]; 
     $editname2 = $_POST["name"];
@@ -123,12 +116,10 @@
 <?php    
 //表示機能
     //SELECT文：入力したデータレコードを抽出し、表示する
-    //$rowの添字（[ ]内）は、4-2で作成したカラムの名称に併せる必要があります。
     $sql = 'SELECT * FROM tbtest';
     $stmt = $pdo->query($sql);
     $results = $stmt->fetchAll();
     foreach ($results as $row){
-        //$rowの中にはテーブルのカラム名が入る
         echo $row['id'].',';
         echo $row['name'].',';
         echo $row['comment'].',';
